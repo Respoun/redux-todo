@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { addItems } from './actions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = ({ qty, dispatch }) => {
+    let input, item;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!input.value.trim()) { return }
+        item = {
+            text: input.value
+        }
+        dispatch(addItems(item));
+        input.value = '';
+    };
+
+    return (
+        <div className={'wrapper'}>
+            <h1>TODOS</h1>
+            <form onSubmit={handleSubmit} >
+                <div className={'div-wrapper'}>
+                    <label>Todo: </label>
+                    <input type="text" name="name" ref={node => (input = node)} />
+                </div>
+                <div className={'div-wrapper'}>
+                    <label>&nbsp;</label>
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+        </div>
+    )
 }
 
-export default App;
+export default connect()(App)
