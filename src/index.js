@@ -14,7 +14,6 @@ const store = createStore(rootReducer);
 ReactDOM.render(
     <Provider store={ store }>
         <App />
-        <hr/>
         <ItemsList />
     </Provider>,
     document.getElementById('root')
